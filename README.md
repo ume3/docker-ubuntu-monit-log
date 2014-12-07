@@ -11,5 +11,5 @@
 NIC 1 Rule(0):   name = ssh_container, protocol = tcp, host ip = 127.0.0.1, host port = 10000, guest ip = , guest port = 10000
 ```
 
-* `docker run -dt -p 10000:22 <continer>`
+* `docker run -dt -p 10000:22 <container ID>`
 
