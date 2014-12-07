@@ -9,6 +9,7 @@ ENV USER_PASSWORD docker
 RUN apt-get update
 RUN apt-get upgrade -y
 RUN apt-get install sudo passwd openssh-server -y
+RUN apt-get install monit -y
 
 ## setup
 # ssh
@@ -21,9 +22,17 @@ RUN echo "$USER_NAME ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/$USER_NAME
 RUN mkdir /var/run/sshd
 RUN mkdir /home/${USER_NAME}
 
+# monit
+RUN mkdir -p /var/monit/
+COPY files/monit/monitrc /etc/monit/
+RUN chmod 0700 /etc/monit/monitrc
+
+COPY files/monit/sshd.rc /etc/monit/conf.d/
+
 ## service
 # ssh
 EXPOSE 22
+# monit
+EXPOSE 2812
 
-ENTRYPOINT [ "/usr/sbin/sshd", "-D" ]
-
+CMD /usr/bin/monit -I  
