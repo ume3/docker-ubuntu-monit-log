@@ -18,6 +18,7 @@ RUN sed -ri 's/^#PermitRootLogin yes$/PermitRootLogin no/' /etc/ssh/sshd_config
 RUN useradd $USER_NAME
 RUN echo "$USER_NAME:$USER_PASSWORD" | chpasswd
 RUN echo "$USER_NAME ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers.d/$USER_NAME
+RUN mkdir /var/run/sshd
 RUN mkdir /home/${USER_NAME}
 
 ## service
