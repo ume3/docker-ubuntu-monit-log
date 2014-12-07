@@ -10,6 +10,8 @@ RUN apt-get update
 RUN apt-get upgrade -y
 RUN apt-get install sudo passwd openssh-server -y
 RUN apt-get install monit -y
+RUN apt-get install curl -y
+RUN curl -L http://toolbelt.treasuredata.com/sh/install-ubuntu-trusty-td-agent2.sh | sh
 
 ## setup
 # ssh
@@ -28,11 +30,14 @@ COPY files/monit/monitrc /etc/monit/
 RUN chmod 0700 /etc/monit/monitrc
 
 COPY files/monit/sshd.rc /etc/monit/conf.d/
+COPY files/monit/td-agent.rc /etc/monit/conf.d/
 
 ## service
 # ssh
 EXPOSE 22
 # monit
 EXPOSE 2812
+# fluentd
+EXPOSE 24224
 
 CMD /usr/bin/monit -I  
