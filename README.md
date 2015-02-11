@@ -1,6 +1,9 @@
 ## Dcoker+Ubuntu+Monit+Fluentd
 * このDockerfileをbuildすると、monitでfluentd,sshdが立ち上がります
 
+### Docker Hubに配置
+`docker pull ume3/docker-ubuntu-monit-log`
+
 ### Mac環境の場合
 * boot2docker(virualbox) を想定するとポートフォワーディングが必要
 * sshdを(10000:22)でログインしたい場合
